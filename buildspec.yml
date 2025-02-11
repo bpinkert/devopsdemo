@@ -22,6 +22,7 @@ phases:
     commands:
       - echo "Build completed on `date`"
       - echo "Uploading the artifact to S3"
+      - echo "testing codebuild too"
 artifacts:
   files:
     - output.html
