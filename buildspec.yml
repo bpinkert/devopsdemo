@@ -10,7 +10,7 @@ phases:
   build:
     commands:
       - echo "Starting Flask app..."
-      - python my_flask_app.py &  # Start the app in the background
+      - python lambda_function.py &  # Start the app in the background
       - sleep 5  # Give the server time to start
       - echo "Testing Flask HTML output..."
       - curl -s -o output.html http://127.0.0.1:5000/
