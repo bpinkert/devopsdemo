@@ -1,0 +1,27 @@
+version: 2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+    commands:
+      - echo "Installing dependencies"
+      - pip install -r requirements.txt
+  build:
+    commands:
+      - echo "Starting Flask app..."
+      - python my_flask_app.py &  # Start the app in the background
+      - sleep 5  # Give the server time to start
+      - echo "Testing Flask HTML output..."
+      - curl -s -o output.html http://127.0.0.1:5000/
+      - cat output.html  # Print the HTML output
+      - grep "John Doe" output.html && echo "HTML output verified!" || exit 1
+      - echo "Stopping Flask app..."
+      - pkill -f lambda_function.py  # Stop the app
+  post_build:
+    commands:
+      - echo "Build completed on `date`"
+      - echo "Uploading the artifact to S3"
+artifacts:
+  files:
+    - output.html
