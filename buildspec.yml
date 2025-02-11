@@ -15,7 +15,7 @@ phases:
       - echo "Testing Flask HTML output..."
       - curl -s -o output.html http://127.0.0.1:5000/
       - cat output.html  # Print the HTML output
-      - grep "John Doe" output.html && echo "HTML output verified!" || exit 1
+      - grep "John Doe" output.html && echo "HTML output verified!" && export success=true || exit 1
       - echo "Stopping Flask app..."
       - pkill -f lambda_function.py  # Stop the app
   post_build:
